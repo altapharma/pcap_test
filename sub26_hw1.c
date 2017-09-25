@@ -150,8 +150,8 @@ int main(int argc, char* argv[]) {
         tcp = (struct sniff_tcp*)(packet + SIZE_ETHERNET + size_ip);
         size_tcp = TH_OFF(tcp)*4;
         printf("[-] TCP Header's Src / Dest Port\n");
-        printf("Src Port : %d\n",tcp->th_sport);
-        printf("Dest Port : %d\n",tcp->th_dport);
+        printf("Src Port : %d\n",ntohs(tcp->th_sport));
+        printf("Dest Port : %d\n",ntohs(tcp->th_dport));
         printf("\n");
         if(ip->ip_len > (size_ip + size_tcp)) //ip_len : ip datagram's size
         { 
