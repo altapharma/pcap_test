@@ -16,8 +16,8 @@
 
 #include <pcap.h>
 #include <stdio.h>
-#include <arpa/inet.h>
-#include <netinet/in.h>
+#include <arpa/inet.h>    //using (ntohs ntohl htons htonl) function
+#include <netinet/in.h>   //using (inet_ntoa) function
 
 void usage() {
   printf("syntax: pcap_test <interface>\n");
@@ -40,6 +40,7 @@ int main(int argc, char* argv[]) {
         u_char ether_shost[ETHER_ADDR_LEN]; /* Source host address */
         u_short ether_type; /* IP? ARP? RARP? etc */
         };
+//----------------------------------------------------------------------------------//
 
   int i;
   char* dev = argv[1];
@@ -67,7 +68,7 @@ int main(int argc, char* argv[]) {
     u_short ip_sum;   /* checksum */
     struct in_addr ip_src,ip_dst; /* source and dest address */
   };
-  #define IP_HL(ip)   (((ip)->ip_vhl) & 0x0f)
+  #define IP_HL(ip)   (((ip)->ip_vhl) & 0x0f) //ip_vhl = ip_version(4bit) + ip_header_length(4bit) 
   #define IP_V(ip)    (((ip)->ip_vhl) >> 4)
 //----------------------------------------------------------------------------------//
 
@@ -80,7 +81,7 @@ int main(int argc, char* argv[]) {
     tcp_seq th_seq;   /* sequence number */
     tcp_seq th_ack;   /* acknowledgement number */
     u_char th_offx2;  /* data offset, rsvd */
-  #define TH_OFF(th)  (((th)->th_offx2 & 0xf0) >> 4)
+  #define TH_OFF(th)  (((th)->th_offx2 & 0xf0) >> 4)  //th_off(8bit) = data_offset(4bit) + reserved(3bit) 
     u_char th_flags;
   #define TH_FIN 0x01
   #define TH_SYN 0x02
@@ -144,11 +145,11 @@ int main(int argc, char* argv[]) {
       printf("Src Ip : %s\n",inet_ntoa(ip->ip_src));
       printf("Dest Ip : %s\n",inet_ntoa(ip->ip_dst));
       printf("\n");
-      size_ip = IP_HL(ip)*4;
+      size_ip = IP_HL(ip)*4; //ip header size (maximum : 60byte)
       if(ip->ip_p == 6) //Iam TCP
       {  
         tcp = (struct sniff_tcp*)(packet + SIZE_ETHERNET + size_ip);
-        size_tcp = TH_OFF(tcp)*4;
+        size_tcp = TH_OFF(tcp)*4; //tcp header size (maximum : 60byte)
         printf("[-] TCP Header's Src / Dest Port\n");
         printf("Src Port : %d\n",ntohs(tcp->th_sport));
         printf("Dest Port : %d\n",ntohs(tcp->th_dport));
