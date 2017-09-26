@@ -1,10 +1,10 @@
 all : pcap_test
 
 pcap_test: main.o
-	g++ -g -o pcap_test main.o -lpcap
+	gcc -o pcap_test main.o -lpcap
 
-main.o:
-	g++ -g -c -o main.o sub26_hw1.c
+main.o: sub26_hw1.c my_pcap.h
+	gcc -c -o main.o sub26_hw1.c
 
 clean:
 	rm -f pcap_test
