@@ -6,7 +6,7 @@
 *   Student ID : 2015410209                                                             *
 *                                                                                       *
 *   - HW1 : pcap_programming                                                            *
-*   - conference                                                                        *
+*   - reference                                                                        *
 *   https://www.joinc.co.kr/w/Site/Network_Programing/AdvancedComm/pcap_intro#AEN106    *
 *   http://www.tcpdump.org/pcap.html                                                    *
 *                                                                                       *
